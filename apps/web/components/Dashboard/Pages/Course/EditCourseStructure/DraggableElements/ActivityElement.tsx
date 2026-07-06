@@ -27,8 +27,10 @@ import {
   MoreVertical,
   Package,
   Pencil,
+  Puzzle,
   Save,
   Sparkles,
+  SquarePlus,
   Trash2,
   Video,
 } from 'lucide-react'
@@ -53,12 +55,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@components/ui/dropdown-menu'
+import { useAtlasMini } from '@components/Dashboard/Atlas/AtlasMiniContext'
+import { ActivityPreviewHoverCard } from '@components/Objects/Activities/ActivityPreview/ActivityPreview'
 
 type ActivitiyElementProps = {
   orgslug: string
   activity: any
   activityIndex: any
   course_uuid: string
+  chapter_id?: number
+  chapter_name?: string
   isSelected?: boolean
   onToggleSelect?: () => void
   selectionMode?: boolean
@@ -94,6 +100,7 @@ function ActivityElement(props: ActivitiyElementProps) {
   const _withUnpublishedActivities = course ? course.withUnpublishedActivities : false
   const queryClient = useQueryClient()
   const cleanCourseUuid = (id: string) => id?.replace(/^course_/, '') ?? id
+  const { open: atlasOpen, attachReference: atlasAttachReference } = useAtlasMini()
 
   // Assignment UUID for edit link
   const [assignmentUUID, setAssignmentUUID] = useState('');
@@ -199,6 +206,20 @@ function ActivityElement(props: ActivitiyElementProps) {
     } finally {
       setIsPublishing(false)
     }
+  }
+
+  function copyTitleToAtlas() {
+    if (!props.activity?.activity_uuid || !props.activity?.name) return
+    atlasAttachReference({
+      type: 'activity',
+      uuid: props.activity.activity_uuid,
+      name: props.activity.name,
+      parent_course_uuid: props.course_uuid,
+      parent_chapter_id: props.chapter_id,
+      parent_chapter_name: props.chapter_name,
+      activity_type: props.activity.activity_type,
+    })
+    toast.success(t('dashboard.courses.structure.activity.toasts.added_to_atlas', { defaultValue: 'Added to Atlas chat' }))
   }
 
   async function updateActivityName(activityId: string) {
@@ -314,7 +335,22 @@ function ActivityElement(props: ActivitiyElementProps) {
                 </ToolTip>
               </div>
             ) : (
-              <p className="first-letter:uppercase text-sm text-gray-600 truncate">{props.activity.name}</p>
+              <ActivityPreviewHoverCard activity={props.activity}>
+                <p className="first-letter:uppercase text-sm text-gray-600 truncate cursor-default">
+                  {props.activity.name}
+                </p>
+              </ActivityPreviewHoverCard>
+            )}
+            {atlasOpen && !props.selectionMode && (
+              <button
+                type="button"
+                onClick={copyTitleToAtlas}
+                title={t('dashboard.courses.structure.actions.send_to_atlas', { defaultValue: 'Send title to Atlas' })}
+                aria-label={t('dashboard.courses.structure.actions.send_to_atlas', { defaultValue: 'Send title to Atlas' })}
+                className="flex-shrink-0 h-6 w-6 inline-flex items-center justify-center rounded-md text-violet-500 hover:text-violet-700 hover:bg-violet-50 transition-colors"
+              >
+                <SquarePlus size={14} />
+              </button>
             )}
           </div>
 
@@ -531,8 +567,14 @@ const ACTIVITIES = {
   'TYPE_SCORM': {
     displayNameKey: 'scorm',
     Icon: Package
+  },
+  'TYPE_CUSTOM': {
+    displayNameKey: 'custom',
+    Icon: Puzzle
   }
 }
+
+const UNKNOWN_ACTIVITY = { displayNameKey: 'dynamic', Icon: Sparkles }
 
 const ActivityTypeIndicator = ({activityType, activitySubType, isMobile} : { activityType: keyof typeof ACTIVITIES, activitySubType?: string, isMobile: boolean}) => {
   const { t } = useTranslation()
@@ -542,7 +584,7 @@ const ActivityTypeIndicator = ({activityType, activitySubType, isMobile} : { act
     ? { displayNameKey: 'markdown', Icon: MarkdownLogo }
     : isEmbed
     ? { displayNameKey: 'embed', Icon: GlobePhosphor }
-    : ACTIVITIES[activityType]
+    : ACTIVITIES[activityType] ?? UNKNOWN_ACTIVITY
 
   return (
     <div className="flex items-center gap-1.5 flex-shrink-0">
