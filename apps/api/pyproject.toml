@@ -48,6 +48,7 @@ dependencies = [
     "pgvector==0.4.2",
     "pypdf==6.13.3",
     "mcp>=1.28.1",
+    "fakeredis>=2.36.2",
 ]
 
 [tool.ruff]
