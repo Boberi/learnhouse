@@ -43,7 +43,7 @@ def get_database_url():
         'DATABASE_URL',
         os.environ.get(
             'LEARNHOUSE_DB_URL',
-            'postgresql://learnhouse:learnhouse@localhost:5432/learnhouse'
+            'postgresql://learnhouse:learnhouse@localhost:5438/learnhouse'
         )
     )
 

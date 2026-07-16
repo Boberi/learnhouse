@@ -2317,6 +2317,7 @@
         "label_placeholder": "Bir organizasyon etiketi seçin",
         "about": "Organizasyon Hakkında",
         "about_placeholder": "Organizasyonunuzun detaylı açıklaması",
+        "characters_left": "{{count}} karakter kaldı",
         "showcase_explore": "LearnHouse Explore'da göster",
         "showcase_description": "Organizasyonunuzun kurslarını ve içeriklerini LearnHouse topluluğuyla paylaşın. Öğrencilerin değerli eğitim kaynaklarını keşfetmelerine yardımcı olmak için bunu etkinleştirin.",
         "save_changes": "Değişiklikleri Kaydet",

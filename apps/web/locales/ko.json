@@ -2305,6 +2305,7 @@
         "label_placeholder": "조직 레이블 선택",
         "about": "조직 정보",
         "about_placeholder": "조직에 대한 상세 설명",
+        "characters_left": "{{count}}자 남음",
         "showcase_explore": "LearnHouse Explore에 표시",
         "showcase_description": "조직의 코스 및 콘텐츠를 LearnHouse 커뮤니티와 공유합니다. 이를 활성화하여 학습자가 귀중한 교육 리소스를 찾을 수 있도록 도와주세요.",
         "save_changes": "변경 사항 저장",

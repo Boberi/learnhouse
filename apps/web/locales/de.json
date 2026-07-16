@@ -2295,6 +2295,7 @@
         "label_placeholder": "Organisations-Label auswählen",
         "about": "Über die Organisation",
         "about_placeholder": "Detaillierte Beschreibung Ihrer Organisation",
+        "characters_left": "{{count}} Zeichen übrig",
         "save_changes": "Änderungen speichern",
         "saving": "Speichern...",
         "update_success": "Organisation aktualisiert",

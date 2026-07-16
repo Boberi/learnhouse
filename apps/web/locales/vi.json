@@ -2317,6 +2317,7 @@
         "label_placeholder": "Chọn một nhãn tổ chức",
         "about": "Giới thiệu tổ chức",
         "about_placeholder": "Mô tả chi tiết về tổ chức của bạn",
+        "characters_left": "Còn lại {{count}} ký tự",
         "showcase_explore": "Hiển thị trong LearnHouse Explore",
         "showcase_description": "Chia sẻ các khóa học và nội dung của tổ chức bạn với cộng đồng LearnHouse. Bật tính năng này để giúp người học khám phá các tài nguyên giáo dục giá trị.",
         "save_changes": "Lưu thay đổi",

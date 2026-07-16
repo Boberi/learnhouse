@@ -2317,6 +2317,7 @@
         "label_placeholder": "Wybierz etykietę organizacji",
         "about": "O organizacji",
         "about_placeholder": "Szczegółowy opis Twojej organizacji",
+        "characters_left": "Pozostało {{count}} znaków",
         "showcase_explore": "Pokaż w LearnHouse Explore",
         "showcase_description": "Udostępnij kursy i treści swojej organizacji społeczności LearnHouse. Włącz to, aby pomóc uczniom znaleźć wartościowe zasoby edukacyjne.",
         "save_changes": "Zapisz zmiany",

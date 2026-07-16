@@ -2309,6 +2309,7 @@
         "label_placeholder": "اختر ملصق المنظمة",
         "about": "حول المنظمة",
         "about_placeholder": "وصف تفصيلي لمنظمتك",
+        "characters_left": "{{count}} حرف متبقي",
         "save_changes": "حفظ التغييرات",
         "saving": "جاري الحفظ...",
         "update_success": "تم تحديث المنظمة",

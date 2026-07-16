@@ -2747,6 +2747,7 @@
         "label_placeholder": "Select organization label",
         "about": "About Organization",
         "about_placeholder": "Detailed description of your organization",
+        "characters_left": "{{count}} characters left",
         "save_changes": "Save Changes",
         "saving": "Saving...",
         "update_success": "Organization Updated",

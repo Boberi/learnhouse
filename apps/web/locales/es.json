@@ -2295,6 +2295,7 @@
         "label_placeholder": "Seleccionar etiqueta de organización",
         "about": "Acerca de la organización",
         "about_placeholder": "Descripción detallada de tu organización",
+        "characters_left": "{{count}} caracteres restantes",
         "save_changes": "Guardar cambios",
         "saving": "Guardando...",
         "update_success": "Organización actualizada",

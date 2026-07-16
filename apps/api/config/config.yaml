@@ -45,7 +45,7 @@ mailing_config:
   smtp_use_tls: true
 
 database_config:
-  sql_connection_string: postgresql://learnhouse:learnhouse@localhost:5432/learnhouse
+  sql_connection_string: postgresql://learnhouse:learnhouse@localhost:5438/learnhouse
 
 redis_config:
   redis_connection_string: redis://localhost:6379/learnhouse

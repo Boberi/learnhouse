@@ -2317,6 +2317,7 @@
         "label_placeholder": "संगठन लेबल चुनें",
         "about": "संगठन के बारे में",
         "about_placeholder": "आपके संगठन का विस्तृत विवरण",
+        "characters_left": "{{count}} वर्ण शेष",
         "save_changes": "बदलाव सहेजें",
         "saving": "सहेजा जा रहा है...",
         "update_success": "संगठन अपडेट किया गया",

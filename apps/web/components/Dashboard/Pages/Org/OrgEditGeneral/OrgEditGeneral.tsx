@@ -151,7 +151,7 @@ const OrgEditGeneral: React.FC = () => {
                       <Label htmlFor="name">
                         {t('dashboard.organization.settings.name')}
                         <span className="text-gray-500 text-sm ml-2">
-                          ({60 - (values.name?.length || 0)} characters left)
+                          ({t('dashboard.organization.settings.characters_left', { count: 60 - (values.name?.length || 0) })})
                         </span>
                       </Label>
                       <Input
@@ -171,7 +171,7 @@ const OrgEditGeneral: React.FC = () => {
                       <Label htmlFor="description">
                         {t('dashboard.organization.settings.short_description')}
                         <span className="text-gray-500 text-sm ml-2">
-                          ({100 - (values.description?.length || 0)} characters left)
+                          ({t('dashboard.organization.settings.characters_left', { count: 100 - (values.description?.length || 0) })})
                         </span>
                       </Label>
                       <Input
@@ -213,7 +213,7 @@ const OrgEditGeneral: React.FC = () => {
                       <Label htmlFor="about">
                         {t('dashboard.organization.settings.about')}
                         <span className="text-gray-500 text-sm ml-2">
-                          ({400 - (values.about?.length || 0)} characters left)
+                          ({t('dashboard.organization.settings.characters_left', { count: 400 - (values.about?.length || 0) })})
                         </span>
                       </Label>
                       <Textarea
@@ -234,7 +234,7 @@ const OrgEditGeneral: React.FC = () => {
                       <Label htmlFor="footerText">
                         {t('dashboard.organization.settings.footer_text')}
                         <span className="text-gray-500 text-sm ml-2">
-                          ({100 - (footerText?.length || 0)} characters left)
+                          ({t('dashboard.organization.settings.characters_left', { count: 100 - (footerText?.length || 0) })})
                         </span>
                       </Label>
                       <Input

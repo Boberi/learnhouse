@@ -2305,6 +2305,7 @@
         "label_placeholder": "組織ラベルを選択",
         "about": "組織について",
         "about_placeholder": "組織の詳細な説明",
+        "characters_left": "残り {{count}} 文字",
         "save_changes": "変更を保存",
         "saving": "保存中...",
         "update_success": "組織を更新しました",

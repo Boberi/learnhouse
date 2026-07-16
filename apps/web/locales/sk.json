@@ -2557,6 +2557,7 @@
         "label_placeholder": "Vyberte označenie organizácie",
         "about": "O organizácii",
         "about_placeholder": "Podrobný popis vašej organizácie",
+        "characters_left": "{{count}} znakov zostáva",
         "save_changes": "Uložiť zmeny",
         "saving": "Ukladá sa...",
         "update_success": "Organizácia aktualizovaná",

@@ -2588,6 +2588,7 @@
         "label_placeholder": "انتخاب برچسب سازمان",
         "about": "درباره سازمان",
         "about_placeholder": "توضیحات دقیق درباره سازمان",
+        "characters_left": "{{count}} کاراکتر باقی مانده",
         "save_changes": "ذخیره تغییرات",
         "saving": "در حال ذخیره...",
         "update_success": "سازمان به‌روزرسانی شد",

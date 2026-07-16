@@ -2305,6 +2305,7 @@
         "label_placeholder": "选择组织标签",
         "about": "关于组织",
         "about_placeholder": "关于您组织的详细描述",
+        "characters_left": "还剩 {{count}} 个字符",
         "showcase_explore": "在 LearnHouse Explore 中展示",
         "showcase_description": "与 LearnHouse 社区分享您组织的课程和内容。开启此项以帮助学习者发现您的宝贵教育资源。",
         "save_changes": "保存更改",

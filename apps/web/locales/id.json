@@ -2317,6 +2317,7 @@
         "label_placeholder": "Pilih label organisasi",
         "about": "Tentang Organisasi",
         "about_placeholder": "Deskripsi terperinci tentang organisasi Anda",
+        "characters_left": "{{count}} karakter tersisa",
         "save_changes": "Simpan Perubahan",
         "saving": "Menyimpan...",
         "update_success": "Organisasi Diperbarui",

@@ -2295,6 +2295,7 @@
         "label_placeholder": "Selecteer een organisatielabel",
         "about": "Over de organisatie",
         "about_placeholder": "Gedetailleerde beschrijving van je organisatie",
+        "characters_left": "{{count}} tekens over",
         "showcase_explore": "Weergeven op LearnHouse Explore",
         "showcase_description": "Deel de cursussen en inhoud van je organisatie met de LearnHouse-gemeenschap. Schakel dit in om studenten te helpen waardevolle educatieve bronnen te vinden.",
         "save_changes": "Wijzigingen opslaan",

@@ -2295,6 +2295,7 @@
         "label_placeholder": "Selecione o rótulo da organização",
         "about": "Sobre a Organização",
         "about_placeholder": "Descrição detalhada da sua organização",
+        "characters_left": "{{count}} caracteres restantes",
         "showcase_explore": "Exibir no LearnHouse Explore",
         "showcase_description": "Compartilhe os cursos e conteúdos da sua organização com a comunidade LearnHouse. Ative isso para ajudar os alunos a descobrir seus valiosos recursos educacionais.",
         "save_changes": "Salvar Alterações",
