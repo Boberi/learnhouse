@@ -48,10 +48,6 @@ const Canva = lazy(() => import('@components/Objects/Activities/DynamicCanva/Dyn
 const VideoActivity = lazy(() => import('@components/Objects/Activities/Video/Video'))
 const DocumentPdfActivity = lazy(() => import('@components/Objects/Activities/DocumentPdf/DocumentPdf'))
 const AssignmentStudentActivity = lazy(() => import('@components/Objects/Activities/Assignment/AssignmentStudentActivity'))
-const AIActivityAsk = lazy(() => import('@components/Objects/Activities/AI/AIActivityAsk'))
-const AISidePanelContentWrapper = lazy(() => import('@components/Objects/Activities/AI/AIActivityAsk').then(mod => ({ default: mod.AISidePanelContentWrapper })))
-const AISidePanelInline = lazy(() => import('@components/Objects/Activities/AI/AIActivityAsk').then(mod => ({ default: mod.AISidePanelInline })))
-const AIChatBotProvider = lazy(() => import('@components/Contexts/AI/AIChatBotContext'))
 const ScormActivity = lazy(() => import('../../../../../../../../ee/components/Activities/ScormActivity'))
 const MarkdownActivity = lazy(() => import('@components/Objects/Activities/Markdown/MarkdownActivity'))
 const EmbedActivity = lazy(() => import('@components/Objects/Activities/Embed/EmbedActivity'))
@@ -518,10 +514,6 @@ function ActivityClient(props: ActivityClientProps) {
   return (
     <>
       <CourseProvider courseuuid={course?.course_uuid} initialCourseStructure={course}>
-        <Suspense fallback={<LoadingFallback />}>
-          <AIChatBotProvider>
-            <Suspense fallback={null}>
-              <AISidePanelContentWrapper>
             {isFocusMode ? (
               <AnimatePresence>
                 <motion.div
@@ -909,7 +901,6 @@ function ActivityClient(props: ActivityClientProps) {
                               <AuthenticatedClientElement checkMethod="authentication">
                                 {activity.activity_type != 'TYPE_ASSIGNMENT' && (
                                   <>
-                                    <AIActivityAsk activity={activity} />
                                     <ActivityChapterDropdown
                                       course={course}
                                       currentActivityId={activity.activity_uuid ? activity.activity_uuid.replace('activity_', '') : activityid.replace('activity_', '')}
@@ -948,26 +939,21 @@ function ActivityClient(props: ActivityClientProps) {
                           {activity.content.paid_access == false ? (
                             <PaidCourseActivityDisclaimer course={course} />
                           ) : (
-                            <div className="flex gap-6">
-                              <div className={`flex-1 min-w-0 ${activity.activity_type === 'TYPE_SCORM' ? 'rounded-xl overflow-hidden' : 'p-3 sm:p-7 rounded-lg'} ${bgColor} relative isolate`} style={{ zIndex: 'var(--z-base)' }}>
-                                <button
-                                  onClick={() => setIsFocusMode(true)}
-                                  className={`absolute ${activity.activity_type === 'TYPE_SCORM' ? 'top-2 right-2' : 'top-4 right-4'} hidden sm:flex bg-white/80 hover:bg-white nice-shadow p-2 rounded-full cursor-pointer transition-all duration-200 group overflow-hidden pointer-events-auto`}
-                                  style={{ zIndex: 'var(--z-interactive)' }}
-                                  title={t('activities.focus_mode')}
-                                >
-                                  <div className="flex items-center">
-                                    <Maximize2 size={16} className="text-gray-700" />
-                                    <span className="text-xs font-bold text-gray-700 opacity-0 group-hover:opacity-100 transition-all duration-200 w-0 group-hover:w-auto group-hover:ml-2 whitespace-nowrap">
-                                      {t('activities.focus_mode')}
-                                    </span>
-                                  </div>
-                                </button>
-                                {activityContent}
-                              </div>
-                              <Suspense fallback={null}>
-                                <AISidePanelInline activity={activity} />
-                              </Suspense>
+                            <div className={`flex-1 min-w-0 ${activity.activity_type === 'TYPE_SCORM' ? 'rounded-xl overflow-hidden' : 'p-3 sm:p-7 rounded-lg'} ${bgColor} relative isolate`} style={{ zIndex: 'var(--z-base)' }}>
+                              <button
+                                onClick={() => setIsFocusMode(true)}
+                                className={`absolute ${activity.activity_type === 'TYPE_SCORM' ? 'top-2 right-2' : 'top-4 right-4'} hidden sm:flex bg-white/80 hover:bg-white nice-shadow p-2 rounded-full cursor-pointer transition-all duration-200 group overflow-hidden pointer-events-auto`}
+                                style={{ zIndex: 'var(--z-interactive)' }}
+                                title={t('activities.focus_mode')}
+                              >
+                                <div className="flex items-center">
+                                  <Maximize2 size={16} className="text-gray-700" />
+                                  <span className="text-xs font-bold text-gray-700 opacity-0 group-hover:opacity-100 transition-all duration-200 w-0 group-hover:w-auto group-hover:ml-2 whitespace-nowrap">
+                                    {t('activities.focus_mode')}
+                                  </span>
+                                </div>
+                              </button>
+                              {activityContent}
                             </div>
                           )}
                         </>
@@ -1017,10 +1003,6 @@ function ActivityClient(props: ActivityClientProps) {
                 )}
               </GeneralWrapperStyled>
             )}
-              </AISidePanelContentWrapper>
-            </Suspense>
-          </AIChatBotProvider>
-        </Suspense>
       </CourseProvider>
     </>
   )
