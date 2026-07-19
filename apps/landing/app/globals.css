@@ -1,0 +1,74 @@
+@import 'tailwindcss';
+
+:root {
+  --bg: #080808;
+  --bg-elevated: #121212;
+  --accent: #102a24;
+  --accent-soft: #16352d;
+  --text: #f2f0eb;
+  --text-muted: #8a8884;
+  --text-dim: #5c5a56;
+  --line: rgba(242, 240, 235, 0.12);
+  --line-strong: rgba(242, 240, 235, 0.22);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background-color: var(--bg);
+  font-family: var(--font-body), ui-sans-serif, sans-serif;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+/* Subtle atmospheric grain */
+body::before {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+}
+
+@keyframes kenBurns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+.hero-kenburns {
+  animation: kenBurns 14s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero-kenburns {
+    animation: none;
+  }
+
+  body::before {
+    display: none;
+  }
+}

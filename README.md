@@ -98,6 +98,7 @@ This spins up PostgreSQL and Redis, installs dependencies, and starts the API, W
 | App | Path | Description | Technology | Used by |
 |-----|------|-------------|------------|---------|
 | **Web** | `apps/web` | Frontend application — dashboard, course player, editor, landing pages | Next.js, React, TailwindCSS, Tiptap | Teachers, Students, Admins |
+| **Landing** | `apps/landing` | Public marketing site served at `/landing` | Next.js, React, TailwindCSS | Visitors |
 | **API** | `apps/api` | Backend REST API — auth, courses, payments, AI, analytics | FastAPI, Python, SQLModel, Alembic | Web, CLI, Collab |
 | **Collab** | `apps/collab` | Real-time collaboration server — live editing sync for courses & boards | Hocuspocus, Yjs, WebSocket | Web (editor, boards) |
 | **CLI** | `apps/cli` | Official CLI — setup wizard, dev environment, instance management | Commander, Node.js | Developers, Self-hosters |

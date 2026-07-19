@@ -1,7 +1,7 @@
 /**
  * Generates nginx.prod.conf for the external reverse proxy.
- * All traffic (including /collab WebSocket) goes to the app container,
- * which has its own internal nginx routing.
+ * All traffic (including /collab WebSocket and /landing) goes to the app
+ * container, which has its own internal nginx routing.
  */
 export function generateNginxConf(): string {
   return `
@@ -24,7 +24,8 @@ server {
     client_header_buffer_size 32k;
 
     # Proxy all requests to the learnhouse-app service
-    # The app container has internal nginx routing between frontend, backend, and collab
+    # The app container has internal nginx routing between frontend, landing,
+    # backend, and collab (see docker/nginx.conf for /landing, /api/v1, /collab)
     location / {
         proxy_pass http://learnhouse-app:80;
         # Use $http_host (not $host) so the port is preserved — Next.js Server

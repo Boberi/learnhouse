@@ -51,7 +51,50 @@ COPY --chown=nextjs:nodejs apps/web/server-wrapper.js ./
 RUN chmod +x server-wrapper.js
 
 # ───────────────────────────────────────────────
-# Stage 4: Collab server build
+# Stage 4: Landing dependency install
+# ───────────────────────────────────────────────
+FROM oven/bun:1-alpine AS landing-deps
+RUN apk update && apk add --no-cache libc6-compat && rm -rf /var/cache/apk/*
+WORKDIR /app
+
+COPY apps/landing/package.json apps/landing/bun.lock* ./
+RUN bun install --frozen-lockfile
+
+# ───────────────────────────────────────────────
+# Stage 5: Landing build
+# ───────────────────────────────────────────────
+FROM oven/bun:1-alpine AS landing-builder
+WORKDIR /app
+COPY --from=landing-deps /app/node_modules ./node_modules
+COPY apps/landing .
+
+ENV NEXT_TELEMETRY_DISABLED=1
+RUN rm -f .env*
+RUN bun run build
+
+# ───────────────────────────────────────────────
+# Stage 6: Landing production image
+# ───────────────────────────────────────────────
+FROM node:24-alpine AS landing-runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+
+RUN addgroup --system --gid 1001 nodejs \
+    && adduser --system --uid 1001 nextjs
+
+COPY --from=landing-builder /app/public ./public
+RUN mkdir .next && chown nextjs:nodejs .next
+
+COPY --from=landing-builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=landing-builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+COPY --chown=nextjs:nodejs apps/landing/server-wrapper.js ./
+RUN chmod +x server-wrapper.js
+
+# ───────────────────────────────────────────────
+# Stage 7: Collab server build
 # ───────────────────────────────────────────────
 FROM oven/bun:1-alpine AS collab-builder
 WORKDIR /app
@@ -65,7 +108,7 @@ COPY apps/collab/src/ ./src/
 RUN bun run build
 
 # ───────────────────────────────────────────────
-# Stage 5: Final image combining frontend + backend + collab
+# Stage 8: Final image combining frontend + landing + backend + collab
 # ───────────────────────────────────────────────
 FROM python:3.14.3-slim-bookworm AS runner
 
@@ -86,6 +129,9 @@ ENV PATH="/root/.bun/bin:${PATH}"
 
 # Copy the frontend standalone build
 COPY --from=frontend-runner /app /app/web
+
+# Copy the landing standalone build
+COPY --from=landing-runner /app /app/landing
 
 # Backend: install deps first (better layer caching)
 WORKDIR /app/api
@@ -111,7 +157,7 @@ COPY ./apps/api/docker-entrypoint.sh /app/api/docker-entrypoint.sh
 COPY ./docker/start.sh /app/start.sh
 RUN chmod +x /app/api/docker-entrypoint.sh /app/start.sh
 
-ENV PORT=8000 LEARNHOUSE_PORT=9000 COLLAB_PORT=4000 HOSTNAME=0.0.0.0 LEARNHOUSE_OSS=true NEXT_PUBLIC_LEARNHOUSE_OSS=true
+ENV PORT=8000 LANDING_PORT=8010 LEARNHOUSE_PORT=9000 COLLAB_PORT=4000 HOSTNAME=0.0.0.0 LEARNHOUSE_OSS=true NEXT_PUBLIC_LEARNHOUSE_OSS=true
 
 EXPOSE 80 9000 4000
 

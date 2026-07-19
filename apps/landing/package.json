@@ -1,0 +1,29 @@
+{
+  "name": "learnhouse-landing",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack -p 8010",
+    "build": "next build",
+    "start": "next start -p 8010",
+    "lint": "eslint . || true"
+  },
+  "dependencies": {
+    "framer-motion": "^12.42.2",
+    "next": "^16.2.9",
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "@tailwindcss/postcss": "^4.1.16",
+    "@types/node": "25.9.4",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "16.2.9",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.16",
+    "typescript": "6.0.3"
+  }
+}

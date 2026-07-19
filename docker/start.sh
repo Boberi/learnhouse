@@ -17,6 +17,7 @@ fi
 # Start the services
 # Use server-wrapper.js for runtime environment variable injection
 pm2 start server-wrapper.js --cwd /app/web --name learnhouse-web > /dev/null 2>&1
+pm2 start server-wrapper.js --cwd /app/landing --name learnhouse-landing > /dev/null 2>&1
 pm2 start uv --cwd /app/api --name learnhouse-api -- run app.py
 pm2 start node --cwd /app/collab --name learnhouse-collab -- dist/index.js
 

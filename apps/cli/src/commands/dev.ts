@@ -91,6 +91,7 @@ async function waitForHealth(label: string, command: string, args: string[], max
 const CONTROLS_BAR = pc.dim('─'.repeat(60)) + '\n' +
   pc.dim('  ') + pc.bold('ra') + pc.dim(' restart api  ') +
   pc.bold('rw') + pc.dim(' restart web  ') +
+  pc.bold('rl') + pc.dim(' restart landing  ') +
   pc.bold('rc') + pc.dim(' restart collab  ') +
   pc.bold('rb') + pc.dim(' restart all  ') +
   pc.bold('q') + pc.dim(' quit') + '\n' +
@@ -307,16 +308,19 @@ export async function devCommand(opts: { ee?: boolean; adminEmail?: string; admi
   healthSpinner.stop('DB and Redis are healthy')
 
   const webDir = path.join(root, 'apps', 'web')
+  const landingDir = path.join(root, 'apps', 'landing')
   const collabDir = path.join(root, 'apps', 'collab')
   const apiDir = path.join(root, 'apps', 'api')
 
   // Auto-install missing dependencies
   const bunProjects = [
     { label: 'web', dir: webDir },
+    { label: 'landing', dir: landingDir },
     { label: 'collab', dir: collabDir },
   ]
 
   for (const { label, dir } of bunProjects) {
+    if (!fs.existsSync(dir)) continue
     if (!fs.existsSync(path.join(dir, 'node_modules'))) {
       p.log.info(`Installing ${label} dependencies...`)
       const result = spawnSync('bun', ['install'], { cwd: dir, stdio: 'inherit', shell: true })
@@ -339,6 +343,7 @@ export async function devCommand(opts: { ee?: boolean; adminEmail?: string; admi
   // Start local services
   let apiProc: ChildProcess | null = null
   let webProc: ChildProcess | null = null
+  let landingProc: ChildProcess | null = null
   let collabProc: ChildProcess | null = null
 
   const startApi = () => {
@@ -349,16 +354,29 @@ export async function devCommand(opts: { ee?: boolean; adminEmail?: string; admi
     return spawnService('next', ['dev', '--turbopack'], path.join(root, 'apps', 'web'), 'web', pc.cyan)
   }
 
+  const startLanding = () => {
+    if (!fs.existsSync(landingDir)) return null
+    return spawnService('next', ['dev', '--turbopack', '-p', '8010'], path.join(root, 'apps', 'landing'), 'landing', pc.green)
+  }
+
   const startCollab = () => {
     return spawnService('tsx', ['watch', 'src/index.ts'], path.join(root, 'apps', 'collab'), 'collab', pc.yellow)
   }
 
   apiProc = startApi()
   webProc = startWeb()
+  landingProc = startLanding()
   collabProc = startCollab()
 
-  p.log.success('API, Web, and Collab servers started')
+  p.log.success(
+    landingProc
+      ? 'API, Web, Landing, and Collab servers started'
+      : 'API, Web, and Collab servers started',
+  )
   console.log()
+  if (landingProc) {
+    console.log(pc.dim('  Landing: http://localhost:8010/landing'))
+  }
   console.log(pc.dim('  Thank you for contributing to LearnHouse!'))
   console.log()
 
@@ -376,7 +394,12 @@ export async function devCommand(opts: { ee?: boolean; adminEmail?: string; admi
     }
     process.stdin.pause()
 
-    await Promise.all([killProcess(apiProc), killProcess(webProc), killProcess(collabProc)])
+    await Promise.all([
+      killProcess(apiProc),
+      killProcess(webProc),
+      killProcess(landingProc),
+      killProcess(collabProc),
+    ])
 
     console.log(pc.dim('DB and Redis containers are still running for next session.'))
     console.log(pc.dim('To stop them: docker compose -f .learnhouse/docker-compose.dev.yml -p learnhouse-dev down'))
@@ -425,6 +448,11 @@ export async function devCommand(opts: { ee?: boolean; adminEmail?: string; admi
           await killProcess(webProc)
           webProc = startWeb()
           printControls()
+        } else if (key === 'l') {
+          console.log(pc.green('\n  Restarting Landing...\n'))
+          await killProcess(landingProc)
+          landingProc = startLanding()
+          printControls()
         } else if (key === 'c') {
           console.log(pc.yellow('\n  Restarting Collab...\n'))
           await killProcess(collabProc)
@@ -432,9 +460,15 @@ export async function devCommand(opts: { ee?: boolean; adminEmail?: string; admi
           printControls()
         } else if (key === 'b') {
           console.log(pc.yellow('\n  Restarting all...\n'))
-          await Promise.all([killProcess(apiProc), killProcess(webProc), killProcess(collabProc)])
+          await Promise.all([
+            killProcess(apiProc),
+            killProcess(webProc),
+            killProcess(landingProc),
+            killProcess(collabProc),
+          ])
           apiProc = startApi()
           webProc = startWeb()
+          landingProc = startLanding()
           collabProc = startCollab()
           printControls()
         }

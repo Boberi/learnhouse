@@ -195,6 +195,8 @@ server {
     client_body_buffer_size 32k;
     client_header_buffer_size 32k;
 
+    # Outer proxy: all paths (including /landing, /api/v1, /collab) go to the
+    # app container. Internal nginx in the image routes /landing → port 8010.
     location / {
         proxy_pass http://learnhouse-app:80;
         proxy_set_header Host $http_host;
@@ -213,6 +215,8 @@ server {
     }
 }
 ```
+
+After deploy, the marketing site is at `http://YOUR_IP/landing`.
 
 ### 5. Environment file
 
@@ -450,6 +454,7 @@ docker compose up -d --force-recreate learnhouse-app
 - [ ] `/opt/learnhouse-deploy` with compose, nginx, `.env`
 - [ ] Port 80 free and allowed
 - [ ] `docker compose up -d` healthy
+- [ ] Open `http://YOUR_IP/` (app) and `http://YOUR_IP/landing` (marketing)
 - [ ] `http://YOUR_IP` loads; admin login works; password changed
 
 ### Redeploy
