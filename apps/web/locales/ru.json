@@ -116,20 +116,20 @@
           "title": "Функция Enterprise"
         },
         "boards": {
-          "title": "Standard Feature",
-          "description": "Boards is a premium feature available only to organizations on our Standard plan or higher. Upgrade to unlock collaborative boards for real-time brainstorming and planning."
+          "title": "Функция Standard",
+          "description": "Доски — премиум-функция, доступная только организациям с тарифом Standard и выше. Обновите тариф, чтобы разблокировать совместные доски для мозгового штурма и планирования в реальном времени."
         },
         "playgrounds": {
           "title": "Функция Standard",
           "description": "Площадки — премиум-функция, доступная только организациям с тарифом Standard и выше. Обновите тариф, чтобы создавать интерактивные AI-материалы для ваших учеников."
         },
         "scorm": {
-          "title": "Enterprise Feature",
-          "description": "SCORM support is a premium feature available only to organizations on our Enterprise plan. Upgrade to import and deliver SCORM packages alongside your courses."
+          "title": "Функция Enterprise",
+          "description": "Поддержка SCORM — премиум-функция, доступная только организациям с тарифом Enterprise. Обновите тариф, чтобы импортировать и доставлять SCORM-пакеты вместе с курсами."
         },
         "webhooks": {
-          "title": "Pro Feature",
-          "description": "Automations is a premium feature available only to organizations on our Pro plan or higher. Upgrade to wire your courses up to webhooks and external integrations."
+          "title": "Функция Pro",
+          "description": "Автоматизации — премиум-функция, доступная только организациям с тарифом Pro и выше. Обновите тариф, чтобы подключать курсы к вебхукам и внешним интеграциям."
         },
         "api_access": {
           "title": "Функция Pro",
@@ -209,9 +209,9 @@
     "powered_by": "",
     "results": "результат",
     "no_content_yet": "Контента пока нет",
-    "other": "Other",
-    "disabled": "Disabled",
-    "store": "Store",
+    "other": "Другое",
+    "disabled": "Отключено",
+    "store": "Магазин",
     "organizations": "Организации",
     "billing": "Оплата",
     "create_organization": "Создать организацию",
@@ -223,7 +223,17 @@
     "delete_organization_warning": "Это безвозвратно удалит {{name}} и все её данные. Это действие нельзя отменить.",
     "delete_organization_confirm_label": "Введите {{slug}} для подтверждения",
     "deleting": "Удаление…",
-    "retry": "Повторить"
+    "retry": "Повторить",
+    "leave_organization": "Покинуть организацию",
+    "leave_organization_title": "Покинуть организацию?",
+    "leave_organization_desc": "Вы потеряете доступ к {{org}} и будете удалены из её участников. Вы сможете присоединиться снова, если вас пригласят.",
+    "leave_organization_error": "Не удалось покинуть эту организацию. Попробуйте ещё раз.",
+    "leaving": "Выход…",
+    "reload": "Перезагрузить",
+    "continue": "Продолжить",
+    "redirecting": "Перенаправление...",
+    "active": "Активна",
+    "contact_support": "Связаться с поддержкой"
   },
   "banner": {
     "viewing_as_guest": "Вы просматриваете {{name}} как гость.",
@@ -1147,7 +1157,9 @@
       "description": "Безвозвратно удалить аккаунт и закрыть доступ. Это действие нельзя отменить.",
       "warning": "Это безвозвратно удалит ваш аккаунт и все связанные данные. Это действие нельзя отменить.",
       "confirm_label": "Введите {{username}} для подтверждения",
-      "deleting": "Удаление…"
+      "deleting": "Удаление…",
+      "zone_subtitle": "Безвозвратно удалить аккаунт. Это действие нельзя отменить.",
+      "zone_body": "Это удалит ваш аккаунт и доступ. Любая организация, где вы единственный администратор — а также все её курсы и контент — тоже будет удалена. Организации с другими администраторами сохраняются; вы просто будете из них удалены."
     }
   },
   "user": {
@@ -1369,9 +1381,16 @@
           "save_error": "Ошибка обновления профиля"
         },
         "unknown_section": "Неизвестный раздел"
+      },
+      "security": {
+        "current_session_title": "Текущий сеанс",
+        "current_session_subtitle": "Устройство, с которого вы сейчас вошли.",
+        "this_device": "Это устройство",
+        "sign_out": "Выйти"
       }
     },
     "sign_out": "Выйти",
+    "signing_out": "Выход…",
     "username": "Имя пользователя",
     "first_name": "Имя",
     "last_name": "Фамилия",
@@ -5677,6 +5696,22 @@
     "subtitle": "Тарифы и оплата по всем вашим организациям",
     "opening": "Открытие…",
     "manage_billing": "Управление оплатой"
+  },
+  "errors": {
+    "actions": {
+      "reload": "Перезагрузить",
+      "log_back_in": "Войти снова",
+      "report_problem": "Сообщить о проблеме",
+      "contact_support": "Связаться с поддержкой"
+    },
+    "show_technical_details": "Показать технические детали",
+    "hide_technical_details": "Скрыть технические детали",
+    "unexpected_title": "Произошла непредвиденная ошибка",
+    "unexpected_description": "Попробуйте ещё раз. Если проблема сохраняется, сообщите о ней, чтобы мы могли разобраться."
+  },
+  "admin": {
+    "title": "Админ",
+    "superadmin_badge": "Суперадмин"
   },
   "folders": {
     "folder": "Папка",

@@ -713,7 +713,7 @@ function DashLeftMenu() {
                   <HoverMenuItem asChild>
                     <Link href="/dash/developers/seo" className="flex items-center gap-2 px-3 py-2 text-sm text-white/70 hover:text-white hover:bg-white/[0.08] cursor-pointer transition-colors">
                       <MagnifyingGlass size={16} weight="fill" />
-                      <span>SEO</span>
+                      <span>{t('dashboard.organization.settings.tabs.seo', { defaultValue: 'SEO' })}</span>
                     </Link>
                   </HoverMenuItem>
                   <HoverMenuItem asChild>
@@ -767,7 +767,7 @@ function DashLeftMenu() {
             <HoverMenu
               content={
                 <HoverMenuContent className="w-64">
-                  <HoverMenuLabel className="text-white/70 font-medium">Analytics</HoverMenuLabel>
+                  <HoverMenuLabel className="text-white/70 font-medium">{t('common.analytics')}</HoverMenuLabel>
                   <HoverMenuSeparator />
                   <HoverMenuItem asChild>
                     <Link href="/dash/analytics" className="flex items-center gap-2 px-3 py-2 text-sm text-white/70 hover:text-white hover:bg-white/[0.08] cursor-pointer transition-colors">
@@ -789,7 +789,7 @@ function DashLeftMenu() {
                 return (
                   <Link
                     href="/dash/analytics"
-                    aria-label="Analytics"
+                    aria-label={t('common.analytics')}
                     aria-current={active ? 'page' : undefined}
                     className={cn(
                       "relative flex items-center w-full rounded-lg transition-all",

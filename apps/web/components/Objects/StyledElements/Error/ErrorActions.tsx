@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 type Variant = 'primary' | 'neutral' | 'danger' | 'ghost'
 
@@ -74,6 +75,7 @@ export interface ErrorActionsProps {
  */
 export default function ErrorActions({ resolutions, reset, eventId, loginNext }: ErrorActionsProps) {
   const router = useRouter()
+  const { t } = useTranslation()
   const [signingOut, setSigningOut] = useState(false)
 
   // Dedupe while preserving order.
@@ -108,38 +110,45 @@ export default function ErrorActions({ resolutions, reset, eventId, loginNext }:
         switch (kind) {
           case 'retry':
             return (
-              <ActionButton key={kind} onClick={retry} variant="primary" label="Retry"
+              <ActionButton key={kind} onClick={retry} variant="primary" label={t('common.retry')}
                 icon={<RefreshCcw size={16} />} />
             )
           case 'reload':
             return (
-              <ActionButton key={kind} onClick={() => window.location.reload()} variant="primary" label="Reload"
+              <ActionButton key={kind} onClick={() => window.location.reload()} variant="primary"
+                label={t('errors.actions.reload', { defaultValue: 'Reload' })}
                 icon={<RefreshCcw size={16} />} />
             )
           case 'login':
             return (
-              <ActionButton key={kind} href={loginHref} variant="primary" label="Log back in"
+              <ActionButton key={kind} href={loginHref} variant="primary"
+                label={t('errors.actions.log_back_in', { defaultValue: 'Log back in' })}
                 icon={<LogIn size={16} />} />
             )
           case 'home':
             return (
-              <ActionButton key={kind} href={getUriWithoutOrg('/home')} variant="neutral" label="Home"
+              <ActionButton key={kind} href={getUriWithoutOrg('/home')} variant="neutral" label={t('common.home')}
                 icon={<HomeIcon size={16} />} />
             )
           case 'signout':
             return (
               <ActionButton key={kind} onClick={doSignOut} disabled={signingOut} variant="ghost"
-                label={signingOut ? 'Signing out…' : 'Sign out'} icon={<LogOut size={16} />} />
+                label={signingOut
+                  ? t('user.signing_out', { defaultValue: 'Signing out…' })
+                  : t('user.sign_out')}
+                icon={<LogOut size={16} />} />
             )
           case 'report':
             if (!isReportingAvailable()) return null
             return (
               <ActionButton key={kind} onClick={() => openFeedbackDialog({ eventId })} variant="danger"
-                label="Report this problem" icon={<MessageSquareWarning size={16} />} />
+                label={t('errors.actions.report_problem', { defaultValue: 'Report this problem' })}
+                icon={<MessageSquareWarning size={16} />} />
             )
           case 'contact_support':
             return (
-              <ActionButton key={kind} href={supportHref} variant="ghost" label="Contact support"
+              <ActionButton key={kind} href={supportHref} variant="ghost"
+                label={t('errors.actions.contact_support', { defaultValue: 'Contact support' })}
                 icon={<LifeBuoy size={16} />} />
             )
           case 'wait':

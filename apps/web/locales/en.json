@@ -228,7 +228,12 @@
     "leave_organization_title": "Leave organization?",
     "leave_organization_desc": "You will lose access to {{org}} and be removed from its members. You can re-join later if invited.",
     "leave_organization_error": "Could not leave this organization. Please try again.",
-    "leaving": "Leaving…"
+    "leaving": "Leaving…",
+    "reload": "Reload",
+    "continue": "Continue",
+    "redirecting": "Redirecting...",
+    "active": "Active",
+    "contact_support": "Contact support"
   },
   "banner": {
     "viewing_as_guest": "You're viewing {{name}} as a guest.",
@@ -1801,6 +1806,7 @@
       }
     },
     "sign_out": "Sign out",
+    "signing_out": "Signing out…",
     "username": "Username",
     "first_name": "First Name",
     "last_name": "Last Name",
@@ -5683,5 +5689,21 @@
     "subtitle": "Plans and billing across your organizations",
     "opening": "Opening…",
     "manage_billing": "Manage billing"
+  },
+  "errors": {
+    "actions": {
+      "reload": "Reload",
+      "log_back_in": "Log back in",
+      "report_problem": "Report this problem",
+      "contact_support": "Contact support"
+    },
+    "show_technical_details": "Show technical details",
+    "hide_technical_details": "Hide technical details",
+    "unexpected_title": "Something unexpected happened",
+    "unexpected_description": "Please try again. If the problem continues, report it so we can investigate."
+  },
+  "admin": {
+    "title": "Admin",
+    "superadmin_badge": "Superadmin"
   }
 }
