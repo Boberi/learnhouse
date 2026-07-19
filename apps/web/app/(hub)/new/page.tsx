@@ -966,12 +966,7 @@ export default function CreateNewOrgPage() {
               <ArrowLeft size={14} />
               {t('hub_new.topBar.back', { defaultValue: 'Organizations' })}
             </Link>
-            <div className="flex justify-center">
-              <Link href="/home">
-                { }
-                <img src="/lrn.svg" alt="LearnHouse" width={40} height={40} className="opacity-90" />
-              </Link>
-            </div>
+            <div className="flex justify-center" />
             <div className="flex justify-end">
               {isAuthenticated && (
                 <DropdownMenu>

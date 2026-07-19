@@ -341,14 +341,9 @@ export default function PricingCards({
                       {renderEnterpriseCta ? (
                         renderEnterpriseCta()
                       ) : (
-                        <a
-                          href="https://learnhouse.app/contact?subject=business"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-block mt-6 px-5 py-2.5 text-[14px] font-bold bg-white text-black rounded-lg hover:bg-white/90 transition-colors"
-                        >
-                          Talk to us
-                        </a>
+                        <p className="mt-6 text-sm text-white/50 font-medium">
+                          Contact us for enterprise pricing
+                        </p>
                       )}
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-5 lg:pt-1">

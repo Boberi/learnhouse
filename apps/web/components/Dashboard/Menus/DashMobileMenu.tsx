@@ -22,12 +22,10 @@ import {
   X,
   Check,
   ChatCircleDots,
-  Book,
   CaretDown,
   MagnifyingGlass,
   Code,
 } from '@phosphor-icons/react'
-import { DiscordIcon } from '@components/Objects/Icons/DiscordIcon'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useState } from 'react'
@@ -92,19 +90,6 @@ function DashMobileMenu() {
           className="flex items-center gap-0.5 px-1.5 py-1.5 bg-[#111113]/90 backdrop-blur-xl rounded-full"
           style={{ boxShadow: '0 4px 16px rgba(0,0,0,0.3)' }}
         >
-          {/* LearnHouse logo — links to home */}
-          <Link
-            href="/dash"
-            className="flex items-center justify-center px-2.5 py-2.5 rounded-full transition-all duration-200"
-            aria-label="Home"
-          >
-            <img
-              src="/lrn-dash.svg"
-              alt="LearnHouse"
-              className="h-[18px] w-[18px] opacity-60 hover:opacity-90 transition-opacity"
-              style={{ filter: 'brightness(0) invert(1)' }}
-            />
-          </Link>
           {/* Progressive reveal — more icons as viewport widens */}
           <PillLink href="/dash/courses" icon={<BookOpen size={18} weight="fill" />} active={isActive('/dash/courses')} className="hidden min-[340px]:flex" />
           <PillLink href="/dash/assignments" icon={<Files size={18} weight="fill" />} active={isActive('/dash/assignments')} className="hidden min-[390px]:flex" />
@@ -194,11 +179,7 @@ function DashMobileMenu() {
                     alt={org?.name}
                     className="h-7 w-7 object-contain rounded-lg"
                   />
-                ) : (
-                  <div className="h-7 w-7 flex items-center justify-center bg-white/[0.06] rounded-lg">
-                    <img src="/lrn-dash.svg" alt="LearnHouse" className="h-4 w-4" style={{ filter: 'brightness(0) invert(1)' }} />
-                  </div>
-                )}
+                ) : null}
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold text-white truncate leading-none mb-0.5">{org?.name}</p>
                   <p className={cn(
@@ -225,7 +206,7 @@ function DashMobileMenu() {
                 {isEnabled('communities') && <PanelItem href="/dash/communities" icon={<ChatsCircle size={15} weight="fill" />} label={t('communities.title')} active={isActive('/dash/communities')} onClick={close} />}
                 {isEnabled('podcasts') && <PanelItem href="/dash/podcasts" icon={<Headphones size={15} weight="fill" />} label={t('podcasts.podcasts')} active={isActive('/dash/podcasts')} onClick={close} />}
                 {isEnabled('boards') && <PanelItem href="/dash/boards" icon={<ChalkboardSimple size={15} weight="fill" />} label="Boards" active={isActive('/dash/boards')} onClick={close} />}
-                {isEnabled('playgrounds') && <PanelItem href="/dash/playgrounds" icon={<Cube size={15} weight="fill" />} label="Playgrounds" active={isActive('/dash/playgrounds')} onClick={close} />}
+                {isEnabled('playgrounds') && <PanelItem href="/dash/playgrounds" icon={<Cube size={15} weight="fill" />} label={t('common.playgrounds')} active={isActive('/dash/playgrounds')} onClick={close} />}
                 {isEnabled('payments') && <PanelItem href="/dash/payments/overview" icon={<CurrencyCircleDollar size={15} weight="fill" />} label={t('common.payments')} active={isActive('/dash/payments')} onClick={close} />}
                 <PanelItem href="/dash/analytics" icon={<ChartBar size={15} weight="fill" />} label="Analytics" active={isActive('/dash/analytics')} onClick={close} />
                 <PanelItem href="/dash/org/settings/general" icon={<Buildings size={15} weight="fill" />} label={t('common.organization')} active={isActive('/dash/org')} onClick={close} />
@@ -259,18 +240,6 @@ function DashMobileMenu() {
                   </div>
                 )}
 
-                <a href="https://docs.learnhouse.app" target="_blank" rel="noopener noreferrer"
-                  className="flex items-center w-full rounded-lg px-2.5 py-2 gap-2.5 text-white/40 hover:text-white/80 hover:bg-white/[0.05] transition-all"
-                >
-                  <Book size={15} weight="fill" />
-                  <span className="text-sm font-medium">{t('common.help_menu.documentation')}</span>
-                </a>
-                <a href="https://discord.gg/learnhouse" target="_blank" rel="noopener noreferrer"
-                  className="flex items-center w-full rounded-lg px-2.5 py-2 gap-2.5 text-white/40 hover:text-white/80 hover:bg-white/[0.05] transition-all"
-                >
-                  <DiscordIcon size={15} />
-                  <span className="text-sm font-medium">{t('common.help_menu.discord')}</span>
-                </a>
                 <button
                   onClick={() => { setFeedbackModalOpen(true); close() }}
                   className="flex items-center w-full rounded-lg px-2.5 py-2 gap-2.5 text-white/40 hover:text-white/80 hover:bg-white/[0.05] transition-all"

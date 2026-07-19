@@ -4,7 +4,7 @@ import { canManageOrgFromSession } from '@components/Hooks/useAdminStatus'
 import { useLHAnalytics } from '@services/analytics/useLHAnalytics'
 import { AnalyticsEvent } from '@services/analytics/events'
 import UserAvatar from '@components/Objects/UserAvatar'
-import { getAPIUrl, getUriWithOrg, getLEARNHOUSE_PLATFORM_URL_VAL } from '@services/config/config'
+import { getAPIUrl, getUriWithOrg } from '@services/config/config'
 import { apiFetch } from '@services/utils/ts/requests'
 import { signOut } from '@components/Contexts/AuthContext'
 import { getOrgLogoMediaDirectory } from '@services/media/media'
@@ -46,7 +46,6 @@ function HomeClient() {
   const access_token = session?.data?.tokens?.access_token
   const isAuthenticated = session?.status === 'authenticated'
   const isLoading = session?.status === 'loading'
-  const platformUrl = getLEARNHOUSE_PLATFORM_URL_VAL()
 
   const { data: orgs, isLoading: orgsLoading } = useQuery({
     queryKey: ['orgs', 'user'],
@@ -91,17 +90,8 @@ function HomeClient() {
 
         <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-12">
           <div className="w-full max-w-md flex flex-col items-center">
-            {/* Brand */}
             <div className="flex flex-col items-center mb-10">
-              { }
-              <img
-                src="/lrn.svg"
-                alt="LearnHouse"
-                width={44}
-                height={44}
-                className="opacity-90"
-              />
-              <h1 className="mt-6 font-black tracking-tight text-2xl text-gray-900 text-center">
+              <h1 className="font-black tracking-tight text-2xl text-gray-900 text-center">
                 {t('common.your_organizations')}
               </h1>
               <p className="mt-1.5 text-sm text-black/40 text-center">
@@ -229,24 +219,7 @@ function HomeClient() {
               )}
             </div>
 
-            {/* Footer */}
-            {platformUrl ? (
-              <a
-                href={platformUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-10 flex items-center gap-1.5 text-[11px] text-black/30 hover:text-black/60 transition-colors"
-              >
-                <span>{t('common.powered_by', { defaultValue: 'Powered by' })}</span>
-                <span className="font-semibold tracking-tight text-black/50 group-hover:text-black/70">LearnHouse</span>
-              </a>
-            ) : (
-              <div className="mt-10 flex items-center gap-1.5 text-[11px] text-black/30">
-                <span>{t('common.powered_by', { defaultValue: 'Powered by' })}</span>
-                <span className="font-semibold tracking-tight text-black/50">LearnHouse</span>
-              </div>
-            )}
-            <CopyrightFooter year={new Date().getFullYear()} className="mt-4 pt-0" />
+            <CopyrightFooter year={new Date().getFullYear()} className="mt-10 pt-0" />
           </div>
         </div>
       </div>

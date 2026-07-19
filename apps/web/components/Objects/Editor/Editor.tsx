@@ -440,9 +440,6 @@ function Editor(props: EditorProps) {
           <div className="activity-editor-top">
             <div className="activity-editor-doc-section">
               <div className="activity-editor-info-wrapper">
-                <Link href="/">
-                  <EditorLearnHouseLogo />
-                </Link>
                 <Link target="_blank" href={`/course/${course_uuid}`}>
                   <img
                     className="activity-editor-info-thumbnail"
@@ -656,51 +653,6 @@ function Editor(props: EditorProps) {
           )}
         </motion.div>
       </CourseProvider>
-    </div>
-  )
-}
-
-const logoAnimations = [
-  // Slide up from bottom
-  {
-    initial: { y: 20 },
-    animate: { y: 0 },
-    transition: { delay: 1, type: "spring" as const, stiffness: 120, damping: 20 },
-  },
-  // Fade in with scale
-  {
-    initial: { opacity: 0, scale: 0.5 },
-    animate: { opacity: 1, scale: 1 },
-    transition: { delay: 1, type: "spring" as const, stiffness: 150, damping: 18 },
-  },
-  // Slide down from top
-  {
-    initial: { y: -20 },
-    animate: { y: 0 },
-    transition: { delay: 1, type: "spring" as const, stiffness: 120, damping: 20 },
-  },
-]
-
-const EditorLearnHouseLogo = () => {
-  const [animation] = React.useState(
-    () => logoAnimations[Math.floor(Math.random() * logoAnimations.length)]
-  )
-
-  return (
-    <div className="bg-black rounded-md w-[25px] h-[25px] flex items-center justify-center overflow-hidden">
-      <motion.div
-        initial={animation.initial}
-        animate={animation.animate}
-        transition={animation.transition}
-      >
-        <Image
-          src="/lrn.svg"
-          alt="LearnHouse"
-          width={14}
-          height={14}
-          className="invert"
-        />
-      </motion.div>
     </div>
   )
 }

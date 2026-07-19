@@ -1,7 +1,7 @@
+/* eslint-disable no-unused-vars */
 'use client'
 import React, { useEffect, useState } from 'react'
 import CopilotBubble from '@components/Copilot/CopilotBubble'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
 import { queryKeys } from '@/lib/query/keys'
@@ -17,16 +17,12 @@ import { usePathname } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
 import useAdminStatus from '@components/Hooks/useAdminStatus'
 import {
-  Question,
-  Book,
-  Globe,
   ChatCircleDots,
   ChatCircle,
   SquaresFour,
   ChalkboardSimple,
   Signpost,
 } from '@phosphor-icons/react'
-import { DiscordIcon } from '@components/Objects/Icons/DiscordIcon'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,13 +30,19 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@components/ui/dropdown-menu"
+} from '@components/ui/dropdown-menu'
 import { FeedbackModal } from '@components/Objects/Modals/FeedbackModal'
-import { DASHBOARD_MENU_ITEMS, DashboardMenuItem } from '@/lib/dashboard-menu-items'
+import {
+  DASHBOARD_MENU_ITEMS,
+  DashboardMenuItem,
+} from '@/lib/dashboard-menu-items'
 import { isFeatureAvailable } from '@services/plans/plans'
 import { getMenuColorClasses } from '@services/utils/ts/colorUtils'
 import AuthenticatedClientElement from '@components/Security/AuthenticatedClientElement'
-import { useJoinBannerVisible, JOIN_BANNER_HEIGHT } from '@components/Objects/Banners/OrgJoinBanner'
+import {
+  useJoinBannerVisible,
+  JOIN_BANNER_HEIGHT,
+} from '@components/Objects/Banners/OrgJoinBanner'
 import {
   Tooltip,
   TooltipContent,
@@ -51,9 +53,9 @@ import { useLHAnalytics, AnalyticsEvent } from '@services/analytics'
 
 export const OrgMenu = (props: any) => {
   const orgslug = props.orgslug
-  const session = useLHSession() as any;
-  const _access_token = session?.data?.tokens?.access_token;
-  const org = useOrg() as any;
+  const session = useLHSession() as any
+  const _access_token = session?.data?.tokens?.access_token
+  const org = useOrg() as any
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
   const [isFocusMode, setIsFocusMode] = useState(false)
   const pathname = usePathname()
@@ -65,7 +67,9 @@ export const OrgMenu = (props: any) => {
 
   // Copilot bubble state
   const [bubbleOpen, setBubbleOpen] = useState(false)
-  const [bubbleSessionToLoad, setBubbleSessionToLoad] = useState<string | null>(null)
+  const [bubbleSessionToLoad, setBubbleSessionToLoad] = useState<string | null>(
+    null
+  )
   const [isBubbleMode, setIsBubbleMode] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false
     const stored = localStorage.getItem('copilot-bubble-mode')
@@ -86,49 +90,59 @@ export const OrgMenu = (props: any) => {
 
   // Get primary color from org config (v2: customization.general.color, v1: general.color)
   const config = org?.config?.config
-  const primaryColor = config?.customization?.general?.color || config?.general?.color || ''
+  const primaryColor =
+    config?.customization?.general?.color || config?.general?.color || ''
   const colors = getMenuColorClasses(primaryColor)
 
   // Filter dashboard menu items by resolved_features from API
   const rf = config?.resolved_features
-  const visibleDashboardItems = DASHBOARD_MENU_ITEMS.filter((item: DashboardMenuItem) => {
-    if (!item.featureKey) return true
-    if (rf?.[item.featureKey]) return rf[item.featureKey].enabled
-    return isFeatureAvailable(item.featureKey)
-  })
+  const visibleDashboardItems = DASHBOARD_MENU_ITEMS.filter(
+    (item: DashboardMenuItem) => {
+      if (!item.featureKey) return true
+      if (rf?.[item.featureKey]) return rf[item.featureKey].enabled
+      return isFeatureAvailable(item.featureKey)
+    }
+  )
 
   useEffect(() => {
     // Only check focus mode if we're in an activity page
     if (typeof window !== 'undefined' && pathname?.includes('/activity/')) {
-      const saved = localStorage.getItem('globalFocusMode');
-      setIsFocusMode(saved === 'true');
+      const saved = localStorage.getItem('globalFocusMode')
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setIsFocusMode(saved === 'true')
     } else {
-      setIsFocusMode(false);
+      setIsFocusMode(false)
     }
 
     // Add storage event listener for cross-window changes
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === 'globalFocusMode' && pathname?.includes('/activity/')) {
-        setIsFocusMode(e.newValue === 'true');
+        setIsFocusMode(e.newValue === 'true')
       }
-    };
+    }
 
     // Add custom event listener for same-window changes
     const handleFocusModeChange = (e: CustomEvent) => {
       if (pathname?.includes('/activity/')) {
-        setIsFocusMode(e.detail.isFocusMode);
+        setIsFocusMode(e.detail.isFocusMode)
       }
-    };
+    }
 
-    window.addEventListener('storage', handleStorageChange);
-    window.addEventListener('focusModeChange', handleFocusModeChange as EventListener);
+    window.addEventListener('storage', handleStorageChange)
+    window.addEventListener(
+      'focusModeChange',
+      handleFocusModeChange as EventListener
+    )
 
     // Cleanup
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('focusModeChange', handleFocusModeChange as EventListener);
-    };
-  }, [pathname]);
+      window.removeEventListener('storage', handleStorageChange)
+      window.removeEventListener(
+        'focusModeChange',
+        handleFocusModeChange as EventListener
+      )
+    }
+  }, [pathname])
 
   function toggleMenu() {
     setIsMenuOpen(!isMenuOpen)
@@ -136,19 +150,22 @@ export const OrgMenu = (props: any) => {
 
   // Only hide menu if we're in an activity page and focus mode is enabled
   if (pathname?.includes('/activity/') && isFocusMode) {
-    return null;
+    return null
   }
 
   return (
     <>
-      <div className="backdrop-blur-lg h-[60px] blur-3xl" style={{ zIndex: 'var(--z-behind)', marginTop: topOffset }}></div>
+      <div
+        className="backdrop-blur-lg h-[60px] blur-3xl"
+        style={{ zIndex: 'var(--z-behind)', marginTop: topOffset }}
+      ></div>
       <nav
         aria-label="Top navigation"
         className={`backdrop-blur-lg fixed left-0 right-0 h-[60px] ${!primaryColor ? 'bg-white/90 nice-shadow' : ''}`}
         style={{
           zIndex: 'var(--z-nav)',
           backgroundColor: primaryColor || undefined,
-          top: topOffset
+          top: topOffset,
         }}
       >
         <div className="flex items-center justify-between w-full max-w-(--breakpoint-2xl) mx-auto px-4 sm:px-6 lg:px-8 h-full">
@@ -159,13 +176,11 @@ export const OrgMenu = (props: any) => {
                   {org?.logo_image ? (
                     <img
                       src={`${getOrgLogoMediaDirectory(org.org_uuid, org?.logo_image)}`}
-                      alt="Learnhouse"
+                      alt={org?.name || 'Organization logo'}
                       style={{ width: 'auto', height: '100%' }}
                       className="rounded-md"
                     />
-                  ) : (
-                    <LearnHouseLogo logoFilter={colors.logoFilter} />
-                  )}
+                  ) : null}
                 </div>
               </Link>
             </div>
@@ -176,7 +191,11 @@ export const OrgMenu = (props: any) => {
 
           {/* Search Section */}
           <div className="hidden md:flex flex-1 justify-center max-w-lg px-4">
-            <SearchBar orgslug={orgslug} className="w-full" primaryColor={primaryColor} />
+            <SearchBar
+              orgslug={orgslug}
+              className="w-full"
+              primaryColor={primaryColor}
+            />
           </div>
 
           <div className="flex items-center space-x-2">
@@ -202,7 +221,7 @@ export const OrgMenu = (props: any) => {
               </div>
             </AuthenticatedClientElement>
             {/* Boards */}
-            {rf?.boards?.enabled && (
+            {/* {rf?.boards?.enabled && (
               <AuthenticatedClientElement checkMethod="authentication">
                 <div className="hidden md:flex">
                   <TooltipProvider delayDuration={0}>
@@ -223,142 +242,74 @@ export const OrgMenu = (props: any) => {
                   </TooltipProvider>
                 </div>
               </AuthenticatedClientElement>
-            )}
+            )} */}
             {/* AI Copilot */}
-            {rf?.ai?.enabled && config?.admin_toggles?.ai?.copilot_enabled !== false && (
-              <AuthenticatedClientElement checkMethod="authentication">
-                <div className="hidden md:flex">
-                  <CopilotMenuButton
-                    orgslug={orgslug}
-                    iconBtnClass={colors.iconBtn}
-                    isBubbleMode={isBubbleMode}
-                    onToggleBubbleMode={toggleBubbleMode}
-                    bubbleOpen={bubbleOpen}
-                    onOpenBubble={openBubbleWithSession}
-                  />
-                </div>
-              </AuthenticatedClientElement>
-            )}
+            {/* {rf?.ai?.enabled &&
+              config?.admin_toggles?.ai?.copilot_enabled !== false && (
+                <AuthenticatedClientElement checkMethod="authentication">
+                  <div className="hidden md:flex">
+                    <CopilotMenuButton
+                      orgslug={orgslug}
+                      iconBtnClass={colors.iconBtn}
+                      isBubbleMode={isBubbleMode}
+                      onToggleBubbleMode={toggleBubbleMode}
+                      bubbleOpen={bubbleOpen}
+                      onOpenBubble={openBubbleWithSession}
+                    />
+                  </div>
+                </AuthenticatedClientElement>
+              )} */}
             {/* Dashboard Dropdown - Only visible to admins */}
-            {session?.status === 'authenticated' && rights?.dashboard?.action_access && (
-              <div className="hidden md:flex">
-                <DropdownMenu>
-                  <TooltipProvider delayDuration={0}>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <DropdownMenuTrigger asChild>
-                          <button
-                            className={`p-2 rounded-lg transition-colors ${colors.iconBtn}`}
-                            aria-label={t('common.dashboard')}
-                          >
-                            <SquaresFour size={20} weight="fill" />
-                          </button>
-                        </DropdownMenuTrigger>
-                      </TooltipTrigger>
-                      <TooltipContent side="bottom" className="text-xs">
-                        {t('common.dashboard')}
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                  <DropdownMenuContent align="end" className="w-56">
-                    <DropdownMenuLabel className="flex items-center gap-2">
-                      <SquaresFour size={16} weight="fill" />
-                      <span>{t('common.dashboard')}</span>
-                    </DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    {visibleDashboardItems.map((item) => {
-                      const IconComponent = item.icon
-                      return (
-                        <DropdownMenuItem key={item.id} asChild>
-                          <Link
-                            href={item.href}
-                            className="flex items-center gap-2"
-                            onClick={() => track(AnalyticsEvent.DashboardEntered, { source: 'org_menu' })}
-                          >
-                            <IconComponent size={16} weight="fill" />
-                            <span>{t(item.labelKey)}</span>
-                          </Link>
-                        </DropdownMenuItem>
-                      )
-                    })}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            )}
-
-            {/* Help Dropdown - Only visible to admins/maintainers/instructors */}
-            {session?.status === 'authenticated' && rights?.dashboard?.action_access && (
-              <div className="hidden md:flex">
-                <DropdownMenu>
-                  <TooltipProvider delayDuration={0}>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <DropdownMenuTrigger asChild>
-                          <button
-                            className={`p-2 rounded-lg transition-colors ${colors.iconBtn}`}
-                            aria-label={t('common.help')}
-                          >
-                            <Question size={20} weight="fill" />
-                          </button>
-                        </DropdownMenuTrigger>
-                      </TooltipTrigger>
-                      <TooltipContent side="bottom" className="text-xs">
-                        {t('common.help')}
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                  <DropdownMenuContent align="end" className="w-56">
-                    <DropdownMenuLabel className="flex items-center gap-2">
-                      <Question size={16} weight="fill" />
-                      <span>{t('common.help')}</span>
-                    </DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem asChild>
-                      <a
-                        href="https://docs.learnhouse.app"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2"
-                      >
-                        <Book size={16} weight="fill" />
-                        <span>{t('common.help_menu.documentation')}</span>
-                      </a>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <a
-                        href="https://learnhouse.app"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2"
-                      >
-                        <Globe size={16} weight="fill" />
-                        <span>{t('common.help_menu.website')}</span>
-                      </a>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <a
-                        href="https://discord.gg/learnhouse"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2"
-                      >
-                        <DiscordIcon size={16} />
-                        <span>{t('common.help_menu.discord')}</span>
-                      </a>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem
-                      onClick={() => setFeedbackModalOpen(true)}
-                      className="flex items-center gap-2"
-                    >
-                      <ChatCircleDots size={16} weight="fill" />
-                      <span>{t('common.help_menu.report_feedback')}</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            )}
-
+            {/* {session?.status === 'authenticated' &&
+              rights?.dashboard?.action_access && (
+                <div className="hidden md:flex">
+                  <DropdownMenu>
+                    <TooltipProvider delayDuration={0}>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <DropdownMenuTrigger asChild>
+                            <button
+                              className={`p-2 rounded-lg transition-colors ${colors.iconBtn}`}
+                              aria-label={t('common.dashboard')}
+                            >
+                              <SquaresFour size={20} weight="fill" />
+                            </button>
+                          </DropdownMenuTrigger>
+                        </TooltipTrigger>
+                        <TooltipContent side="bottom" className="text-xs">
+                          {t('common.dashboard')}
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                    <DropdownMenuContent align="end" className="w-56">
+                      <DropdownMenuLabel className="flex items-center gap-2">
+                        <SquaresFour size={16} weight="fill" />
+                        <span>{t('common.dashboard')}</span>
+                      </DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      {visibleDashboardItems.map((item) => {
+                        const IconComponent = item.icon
+                        return (
+                          <DropdownMenuItem key={item.id} asChild>
+                            <Link
+                              href={item.href}
+                              className="flex items-center gap-2"
+                              onClick={() =>
+                                track(AnalyticsEvent.DashboardEntered, {
+                                  source: 'org_menu',
+                                })
+                              }
+                            >
+                              <IconComponent size={16} weight="fill" />
+                              <span>{t(item.labelKey)}</span>
+                            </Link>
+                          </DropdownMenuItem>
+                        )
+                      })}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+              )} */}
             <div className="hidden md:flex">
               <HeaderProfileBox primaryColor={primaryColor} />
             </div>
@@ -367,12 +318,34 @@ export const OrgMenu = (props: any) => {
               onClick={toggleMenu}
             >
               {isMenuOpen ? (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 </svg>
               )}
             </button>
@@ -385,7 +358,7 @@ export const OrgMenu = (props: any) => {
         }`}
         style={{
           zIndex: 'var(--z-nav-menu)',
-          top: isMenuOpen ? topOffset + 60 : undefined
+          top: isMenuOpen ? topOffset + 60 : undefined,
         }}
       >
         <div className="flex flex-col px-4 py-3 space-y-4 justify-center items-center">
@@ -393,7 +366,7 @@ export const OrgMenu = (props: any) => {
           <div className="w-full px-2">
             <SearchBar orgslug={orgslug} isMobile={true} />
           </div>
-          <div className='py-4'>
+          <div className="py-4">
             <MenuLinks orgslug={orgslug} />
           </div>
           <div className="border-t border-gray-200">
@@ -462,7 +435,11 @@ const CopilotMenuButton = ({
                 className="relative p-2 rounded-lg transition-colors hover:bg-violet-500/10"
                 aria-label="Copilot"
               >
-                <ChatCircle size={20} weight="fill" className="text-violet-500" />
+                <ChatCircle
+                  size={20}
+                  weight="fill"
+                  className="text-violet-500"
+                />
                 {/* Active indicator dot */}
                 {isBubbleMode && bubbleOpen && (
                   <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-violet-500 ring-2 ring-white dark:ring-neutral-900" />
@@ -485,25 +462,43 @@ const CopilotMenuButton = ({
 
         {recentSessions.length > 0 ? (
           <>
-            {recentSessions.map((s) => (
+            {recentSessions.map((s) =>
               isBubbleMode ? (
                 <DropdownMenuItem
                   key={s.aichat_uuid}
                   onSelect={() => onOpenBubble(s.aichat_uuid)}
                   className="flex items-center gap-2 cursor-pointer"
                 >
-                  <ChatCircleDots size={14} weight="fill" className="shrink-0 text-neutral-400" />
-                  <span className="truncate text-sm">{s.title || 'Untitled'}</span>
+                  <ChatCircleDots
+                    size={14}
+                    weight="fill"
+                    className="shrink-0 text-neutral-400"
+                  />
+                  <span className="truncate text-sm">
+                    {s.title || 'Untitled'}
+                  </span>
                 </DropdownMenuItem>
               ) : (
                 <DropdownMenuItem key={s.aichat_uuid} asChild>
-                  <Link href={getUriWithOrg(orgslug, `/copilot?chat=${s.aichat_uuid}`)} className="flex items-center gap-2">
-                    <ChatCircleDots size={14} weight="fill" className="shrink-0 text-neutral-400" />
-                    <span className="truncate text-sm">{s.title || 'Untitled'}</span>
+                  <Link
+                    href={getUriWithOrg(
+                      orgslug,
+                      `/copilot?chat=${s.aichat_uuid}`
+                    )}
+                    className="flex items-center gap-2"
+                  >
+                    <ChatCircleDots
+                      size={14}
+                      weight="fill"
+                      className="shrink-0 text-neutral-400"
+                    />
+                    <span className="truncate text-sm">
+                      {s.title || 'Untitled'}
+                    </span>
                   </Link>
                 </DropdownMenuItem>
               )
-            ))}
+            )}
             <DropdownMenuSeparator />
           </>
         ) : (
@@ -519,13 +514,24 @@ const CopilotMenuButton = ({
             className="flex items-center gap-2 font-medium cursor-pointer"
           >
             <ChatCircle size={14} weight="fill" className="text-violet-500" />
-            <span>{recentSessions.length > 0 ? 'New conversation' : 'Start a conversation'}</span>
+            <span>
+              {recentSessions.length > 0
+                ? 'New conversation'
+                : 'Start a conversation'}
+            </span>
           </DropdownMenuItem>
         ) : (
           <DropdownMenuItem asChild>
-            <Link href={getUriWithOrg(orgslug, '/copilot')} className="flex items-center gap-2 font-medium">
+            <Link
+              href={getUriWithOrg(orgslug, '/copilot')}
+              className="flex items-center gap-2 font-medium"
+            >
               <ChatCircle size={14} weight="fill" className="text-violet-500" />
-              <span>{recentSessions.length > 0 ? 'View all conversations' : 'Start a conversation'}</span>
+              <span>
+                {recentSessions.length > 0
+                  ? 'View all conversations'
+                  : 'Start a conversation'}
+              </span>
             </Link>
           </DropdownMenuItem>
         )}
@@ -542,7 +548,9 @@ const CopilotMenuButton = ({
           </span>
           <span
             className={`relative inline-flex h-4 w-7 items-center rounded-full transition-colors flex-shrink-0 ${
-              isBubbleMode ? 'bg-violet-500' : 'bg-neutral-200 dark:bg-neutral-600'
+              isBubbleMode
+                ? 'bg-violet-500'
+                : 'bg-neutral-200 dark:bg-neutral-600'
             }`}
           >
             <span
@@ -554,17 +562,5 @@ const CopilotMenuButton = ({
         </button>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
-}
-
-const LearnHouseLogo = ({ logoFilter }: { logoFilter: string }) => {
-  return (
-    <Image
-      src="/lrn-text.svg"
-      alt="LearnHouse logo"
-      width={133}
-      height={40}
-      style={{ height: 'auto', filter: logoFilter }}
-    />
   )
 }

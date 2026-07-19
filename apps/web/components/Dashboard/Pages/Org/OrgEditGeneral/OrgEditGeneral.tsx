@@ -88,12 +88,8 @@ const OrgEditGeneral: React.FC = () => {
   const [footerText, setFooterText] = React.useState<string>(org?.config?.config?.customization?.general?.footer_text || org?.config?.config?.general?.footer_text || '')
   const [_isFooterSaving, _setIsFooterSaving] = React.useState(false)
 
-  // Default language state
-  const [defaultLanguage, setDefaultLanguage] = React.useState<string>(
-    org?.config?.config?.customization?.general?.default_language ||
-    org?.config?.config?.general?.default_language ||
-    'en'
-  )
+  // Default language state — only Russian is supported
+  const [defaultLanguage, setDefaultLanguage] = React.useState<string>('ru')
 
   const initialValues: OrganizationValues = {
     name: org?.name,

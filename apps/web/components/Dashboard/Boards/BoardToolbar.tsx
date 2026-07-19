@@ -3,7 +3,6 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Link from 'next/link'
-import Image from 'next/image'
 import {
   Cursor,
   Hand,
@@ -89,21 +88,6 @@ export default function BoardToolbar({
         WebkitBackdropFilter: 'blur(12px)',
       }}
     >
-      {/* Logo */}
-      <Link href="/dash/boards">
-        <div className="bg-black rounded-md w-[25px] h-[25px] flex items-center justify-center hover:opacity-80 transition-opacity">
-          <Image
-            src="/lrn.svg"
-            alt="LearnHouse"
-            width={14}
-            height={14}
-            className="invert"
-          />
-        </div>
-      </Link>
-
-      <DividerVerticalIcon style={{ color: 'grey', opacity: '0.5' }} />
-
       {/* Tool modes */}
       {tools.map(({ mode, icon: Icon, label, colorClass }) => {
         if (mode === 'draw') {

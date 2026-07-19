@@ -18,7 +18,6 @@ import { useQueryClient } from '@tanstack/react-query'
 import { queryKeys } from '@/lib/query/keys'
 import UnsplashImagePicker, { UnsplashPhotoMeta } from '@components/Dashboard/Pages/Course/EditCourseGeneral/UnsplashImagePicker'
 import AIImageButton from '@components/Objects/AI/AIImageButton'
-import { usePlan } from '@components/Hooks/usePlan'
 
 const SUPPORTED_FILES = constructAcceptValue(['png', 'jpg', 'webp'])
 
@@ -34,11 +33,6 @@ export default function AuthBrandingTab() {
   const queryClient = useQueryClient()
 
   const existingConfig = org?.config?.config?.customization?.auth_branding || org?.config?.config?.general?.auth_branding || {}
-
-  // Check if org has enterprise plan - hide LearnHouse branding for enterprise users
-  // In OSS mode, always show branding regardless of plan
-  const plan = usePlan()
-  const isEnterprise = plan === 'enterprise'
 
   const [welcomeMessage, setWelcomeMessage] = useState<string>(existingConfig.welcome_message || '')
   const [backgroundType, setBackgroundType] = useState<BackgroundType>(existingConfig.background_type || 'gradient')
@@ -316,18 +310,6 @@ export default function AuthBrandingTab() {
                 <div className="absolute inset-0 bg-black/30" />
               )}
 
-              {/* Top lrn logo - hidden for enterprise users */}
-              {!isEnterprise && (
-                <div className="relative z-10">
-                  <div
-                    className={cn(
-                      "w-4 h-4 bg-contain bg-no-repeat",
-                      textColor === 'light' ? "opacity-60 invert" : "opacity-40"
-                    )}
-                    style={{ backgroundImage: "url(/lrn.svg)" }}
-                  />
-                </div>
-              )}
 
               {/* Centered content */}
               <div className="relative z-10 flex-1 flex items-center justify-center">

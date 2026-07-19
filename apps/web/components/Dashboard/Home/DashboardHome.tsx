@@ -6,22 +6,16 @@ import {
   ChartBar,
   GearSix,
   Users,
-  BookOpen,
 } from '@phosphor-icons/react'
-import { useQuery } from '@tanstack/react-query'
-import { queryKeys } from '@/lib/query/keys'
 import { useTranslation } from 'react-i18next'
 import { useLHSession } from '@components/Contexts/LHSessionContext'
 import { useOrg } from '@components/Contexts/OrgContext'
-import { getAPIUrl } from '@services/config/config'
-import { OrgUsageResponse, orgUsageFetcher } from '@services/orgs/usage'
 import AdminAuthorization from '@components/Security/AdminAuthorization'
 import { usePlan } from '@components/Hooks/usePlan'
 import QuickStats from './QuickStats'
 import RecentCourses from './RecentCourses'
 import RecentMembers from './RecentMembers'
 import ContentOverview from './ContentOverview'
-import UsageOverview from './UsageOverview'
 
 const PLAN_COLORS: Record<string, { bg: string; text: string }> = {
   free: { bg: 'bg-gray-100', text: 'text-gray-600' },
@@ -36,17 +30,7 @@ export default function DashboardHome() {
   const session = useLHSession() as any
   const org = useOrg() as any
 
-  const token = session?.data?.tokens?.access_token
-  const orgId = org?.id
   const username = session?.data?.user?.username || ''
-
-  // TanStack Query will dedupe with UsageOverview's identical call via shared queryKey
-  const { data: usageData } = useQuery<OrgUsageResponse>({
-    queryKey: queryKeys.org.usage(orgId),
-    queryFn: () => orgUsageFetcher(`${getAPIUrl()}orgs/${orgId}/usage`, token),
-    enabled: !!token && !!orgId,
-    staleTime: 60_000,
-  })
 
   const plan = usePlan()
   const planStyle = PLAN_COLORS[plan] || PLAN_COLORS.free
@@ -109,14 +93,13 @@ export default function DashboardHome() {
               {/* Content counts row */}
               <ContentOverview />
 
-              {/* Main grid: courses + members + usage */}
+              {/* Main grid: courses + members + stats */}
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-2 space-y-6">
                   <RecentCourses />
                   <RecentMembers />
                 </div>
                 <div className="space-y-6">
-                  <UsageOverview />
                   <QuickStats />
                 </div>
               </div>

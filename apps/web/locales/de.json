@@ -46,11 +46,11 @@
     "help": "Hilfe",
     "help_menu": {
       "documentation": "Dokumentation",
-      "website": "LearnHouse Webseite",
+      "website": "Webseite",
       "discord": "Discord",
       "report_feedback": "Problem melden oder Feedback geben",
       "feedback_title": "Feedback senden",
-      "feedback_description": "Helfen Sie uns, LearnHouse zu verbessern, indem Sie Ihre Gedanken teilen, Fehler melden oder neue Funktionen vorschlagen.",
+      "feedback_description": "Helfen Sie uns, zu verbessern, indem Sie Ihre Gedanken teilen, Fehler melden oder neue Funktionen vorschlagen.",
       "feedback_placeholder": "Teilen Sie uns mit, was Sie denken...",
       "feedback_success": "Vielen Dank für Ihr Feedback!",
       "send_feedback": "Feedback senden",
@@ -206,7 +206,7 @@
     "add": "Hinzufügen",
     "choose_an_organization_to_continue": "Wählen Sie eine Organisation, um fortzufahren",
     "for": "für",
-    "powered_by": "Bereitgestellt von",
+    "powered_by": "",
     "results": "Ergebnis",
     "no_content_yet": "Noch kein Inhalt",
     "other": "Other",
@@ -215,7 +215,7 @@
     "organizations": "Organisationen",
     "billing": "Abrechnung",
     "create_organization": "Organisation erstellen",
-    "copyright": "© {{year}} LearnHouse, Inc.",
+    "copyright": "© {{year}}",
     "delete_organization_error": "Diese Organisation konnte nicht gelöscht werden. Bitte versuche es erneut.",
     "org_actions": "Organisationsaktionen",
     "manage_upgrade": "Verwalten / Upgrade",
@@ -353,11 +353,11 @@
     "privacy_policy": "Datenschutzrichtlinie",
     "image_title_forgot": "Setze dein Passwort zurück.",
     "image_subtitle_forgot": "Wir helfen dir, im Handumdrehen wieder in dein Konto zu kommen.",
-    "image_title_login": "Willkommen zurück bei LearnHouse.",
+    "image_title_login": "Willkommen zurück bei",
     "image_subtitle_login": "Mach da weiter, wo du aufgehört hast — deine Kurse, Lernenden und Tools warten auf dich.",
     "image_title_reset": "Fast geschafft.",
     "image_subtitle_reset": "Erstelle ein sicheres Passwort, um dein Konto zu schützen.",
-    "image_title_signup": "Starte das Unterrichten mit LearnHouse.",
+    "image_title_signup": "Starte das Unterrichten.",
     "image_subtitle_signup": "Erstelle dein Konto und starte deinen ersten Kurs in wenigen Minuten.",
     "image_title_verify": "Bestätige deine E-Mail-Adresse.",
     "image_subtitle_verify": "Ein kurzer Schritt, um dein Konto zu sichern und loszulegen.",
@@ -549,17 +549,17 @@
     "import": {
       "scorm_package": "SCORM-Paket",
       "scorm_description": "SCORM 1.2 oder SCORM 2004 Pakete importieren",
-      "learnhouse_courses": "LearnHouse-Kurse",
-      "learnhouse_description": "Aus LearnHouse exportierte Kurse importieren",
+      "learnhouse_courses": "-Kurse",
+      "learnhouse_description": "Aus exportierte Kurse importieren",
       "upload_package": "Paket hochladen",
       "configure": "Konfigurieren",
       "complete": "Abgeschlossen",
       "click_to_upload": "Klicken zum Hochladen oder per Drag & Drop",
-      "learnhouse_format": "LearnHouse-Kursexport (.zip)",
-      "learnhouse_info": "Laden Sie ein LearnHouse-Kursexport-Paket (.zip) hoch. Sie können auswählen, welche Kurse importiert werden sollen, und Import-Optionen konfigurieren.",
+      "learnhouse_format": "-Kursexport (.zip)",
+      "learnhouse_info": "Laden Sie ein -Kursexport-Paket (.zip) hoch. Sie können auswählen, welche Kurse importiert werden sollen, und Import-Optionen konfigurieren.",
       "analyze_package": "Paket analysieren",
       "ready_to_analyze": "Bereit zur Analyse",
-      "invalid_file_format": "Bitte laden Sie eine .zip-Datei hoch",
+      "invalid_file_format": "Bitte laden Sie eine.zip-Datei hoch",
       "analysis_failed": "Paketanalyse fehlgeschlagen",
       "package_analyzed": "Paket erfolgreich analysiert",
       "select_courses": "Kurse zum Importieren auswählen",
@@ -1400,7 +1400,7 @@
           "description": "Persönliche Einstellungen, Passwörter und E-Mail konfigurieren"
         }
       },
-      "learnhouse_university": "LearnHouse Universität",
+      "learnhouse_university": "Universität",
       "welcome_back": "Willkommen zurück",
       "plan": "Tarif",
       "create_course": "Kurs erstellen",
@@ -1457,8 +1457,8 @@
       "import_course": "Kurs importieren",
       "import_scorm": "SCORM-Paket importieren",
       "import_scorm_description": "Ein SCORM-Paket importieren, um einen neuen Kurs zu erstellen",
-      "import_learnhouse": "LearnHouse-Kurse importieren",
-      "import_learnhouse_description": "Kurse aus einem LearnHouse-Exportpaket importieren",
+      "import_learnhouse": "-Kurse importieren",
+      "import_learnhouse_description": "Kurse aus einem -Exportpaket importieren",
       "import_select_type": "Wählen Sie den Pakettyp aus, den Sie importieren möchten",
       "no_courses": "Noch keine Kurse",
       "create_course_placeholder": "Erstellen Sie einen Kurs, um Inhalte hinzuzufügen",
@@ -2306,9 +2306,9 @@
         "footer_text_desc": "Benutzerdefinierter Text, der unten auf Ihren Organisationsseiten angezeigt wird",
         "default_language": "Standardsprache",
         "default_language_desc": "Die Sprache, die neue Besucher standardmäßig sehen und die für E-Mails im Namen dieser Organisation verwendet wird. Mitglieder können ihre eigene Oberflächensprache weiterhin ändern.",
-        "watermark_desc": "LearnHouse-Wasserzeichen auf Ihren Organisationsseiten anzeigen",
+        "watermark_desc": "-Wasserzeichen auf Ihren Organisationsseiten anzeigen",
         "watermark_free_plan": "Das Wasserzeichen wird im kostenlosen Plan immer angezeigt",
-        "watermark_label": "\"Made with LearnHouse\"-Wasserzeichen",
+        "watermark_label": "\"Made \"-Wasserzeichen",
         "watermark_ee": "Durch Ihre Enterprise Edition-Lizenz ausgeblendet"
       },
       "images": {
@@ -4267,7 +4267,7 @@
   "embed": {
     "not_supported_description": "Diese Art von Aktivität erfordert eine Authentifizierung und kann nicht eingebettet werden.",
     "not_supported_title": "Diese Aktivität wird nicht unterstützt",
-    "powered_by": "Betrieben von LearnHouse",
+    "powered_by": "",
     "visit_activity": "Aktivitätsseite besuchen"
   },
   "analytics": {
@@ -4737,8 +4737,8 @@
       "link": "Verknüpfen",
       "user_group_linked": "Benutzergruppe verknüpft",
       "user_group_unlinked": "Benutzergruppe getrennt",
-      "link_error": "Verknüpfung fehlgeschlagen: ",
-      "unlink_error": "Trennung fehlgeschlagen: ",
+      "link_error": "Verknüpfung fehlgeschlagen:",
+      "unlink_error": "Trennung fehlgeschlagen:",
       "unlink_error_generic": "Benutzergruppe konnte nicht getrennt werden"
     },
     "members": {
@@ -4971,10 +4971,10 @@
       },
       "teach_the_world": {
         "title": "Lerne & wachse",
-        "description": "Ressourcen, die dir helfen, das Beste aus LearnHouse herauszuholen.",
+        "description": "Ressourcen, die dir helfen, das Beste aus herauszuholen.",
         "classroom": "Das Klassenzimmer",
         "classroom_desc": "Lerne, wie du deine Kurse ausbaust und verwaltest",
-        "university": "LearnHouse Universität",
+        "university": "Universität",
         "university_desc": "Anleitungen, Tipps und Best Practices"
       },
       "add_content": {
@@ -5004,7 +5004,7 @@
       }
     },
     "welcome": {
-      "title": "Willkommen bei LearnHouse",
+      "title": "Willkommen bei",
       "subtitle": "Erstelle Kurse, lade Lernende ein und teile Wissen mit der Welt.",
       "get_started": "Loslegen",
       "features_title": "Alles, was du brauchst",
@@ -5545,7 +5545,7 @@
         "title": "Möchtest du es testen?",
         "body": "Geh zur",
         "link": "Entwicklerseite",
-        "suffix": ", um LearnHouse stattdessen auszuprobieren."
+        "suffix": ", um stattdessen auszuprobieren."
       },
       "validation": {
         "required": "Erforderlich",

@@ -1,9 +1,8 @@
 'use client'
 
 import React, { useState, useCallback, useRef, useEffect } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
-import { motion, type Transition, type TargetAndTransition } from 'motion/react'
+import { motion } from 'motion/react'
 import {
   ArrowLeft,
   Check,
@@ -38,41 +37,6 @@ interface PlaygroundEditorProps {
 }
 
 type Message = { role: 'user' | 'model'; content: string }
-
-const logoAnimations: { initial: TargetAndTransition; animate: TargetAndTransition; transition: Transition }[] = [
-  {
-    initial: { y: 10, opacity: 0 },
-    animate: { y: 0, opacity: 1 },
-    transition: { duration: 0.4, ease: 'easeOut' as const },
-  },
-  {
-    initial: { x: -10, opacity: 0 },
-    animate: { x: 0, opacity: 1 },
-    transition: { duration: 0.4, ease: 'easeOut' as const },
-  },
-  {
-    initial: { scale: 0.7, opacity: 0 },
-    animate: { scale: 1, opacity: 1 },
-    transition: { duration: 0.35, ease: 'easeOut' as const },
-  },
-]
-
-const EditorLearnHouseLogo = () => {
-  const [animation] = useState(
-    () => logoAnimations[Math.floor(Math.random() * logoAnimations.length)]
-  )
-  return (
-    <div className="bg-black rounded-md w-[25px] h-[25px] flex items-center justify-center overflow-hidden flex-shrink-0">
-      <motion.div
-        initial={animation.initial}
-        animate={animation.animate}
-        transition={animation.transition}
-      >
-        <Image src="/lrn.svg" alt="LearnHouse" width={14} height={14} className="invert" />
-      </motion.div>
-    </div>
-  )
-}
 
 export default function PlaygroundEditor({
   playground: initialPlayground,
@@ -283,14 +247,6 @@ export default function PlaygroundEditor({
           zIndex: 40,
         }}
       >
-        {/* Logo */}
-        <Link href="/">
-          <EditorLearnHouseLogo />
-        </Link>
-
-        <SlashIcon style={{ color: '#d1d5db', flexShrink: 0 }} />
-
-        {/* Back */}
         <Link
           href="/playgrounds"
           className="flex items-center gap-1.5 text-sm text-neutral-400 hover:text-neutral-700 transition-colors flex-shrink-0 font-medium"
